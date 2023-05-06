@@ -1,17 +1,20 @@
 import React, { useRef } from "react";
 import "./signUpScreen.css";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../../firebase";
 
 function SignUpScreen() {
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const register = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     createUserWithEmailAndPassword(
       auth,
-      emailRef.current.value,
-      passwordRef.current.value
+      emailRef?.current!.value,
+      passwordRef?.current!.value
     )
       .then((authUser) => {
         console.log(authUser);
@@ -23,16 +26,16 @@ function SignUpScreen() {
   const signIn = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     signInWithEmailAndPassword(
-        auth,
-        emailRef.current.value,
-        passwordRef.current.value
-      )
-        .then((authUser) => {
-          console.log(authUser);
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
+      auth,
+      emailRef?.current!.value,
+      passwordRef?.current!.value
+    )
+      .then((authUser) => {
+        console.log(authUser);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
   return (
     <div className="signUpScreen">
